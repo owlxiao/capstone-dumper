@@ -194,6 +194,7 @@ string cs_arch_2_string(cs_arch arch)
 		case CS_ARCH_XCORE: return "CS_ARCH_XCORE";
 		case CS_ARCH_M68K: return "CS_ARCH_M68K";
 		case CS_ARCH_TMS320C64X: return "CS_ARCH_TMS320C64X";
+		case CS_ARCH_RISCV: return "CS_ARCH_RISCV";
 		case CS_ARCH_MAX: return "CS_ARCH_MAX";
 		case CS_ARCH_ALL: return "CS_ARCH_ALL";
 		default: return "UNKNOWN";
@@ -218,7 +219,8 @@ string reg_2_string(csh handle, unsigned reg)
 			&& reg != SPARC_REG_INVALID
 			&& reg != SYSZ_REG_INVALID
 			&& reg != XCORE_REG_INVALID
-			&& reg != TMS320C64X_REG_INVALID)
+			&& reg != TMS320C64X_REG_INVALID
+			&& reg != RISCV_REG_INVALID)
 	{
 		if (auto* rn = cs_reg_name(handle, reg))
 		{
@@ -274,6 +276,7 @@ class ProgramOptions
 					else if (_arch == "xcore") arch = CS_ARCH_XCORE;
 					else if (_arch == "m68k") arch = CS_ARCH_M68K;
 					else if (_arch == "tms320c64x") arch = CS_ARCH_TMS320C64X;
+					else if (_arch == "riscv") arch = CS_ARCH_RISCV;
 					else printHelpAndDie();
 				}
 				else if (c == "-b")
@@ -306,6 +309,9 @@ class ProgramOptions
 					else if (_basicMode == "mips32r6") basicMode = CS_MODE_MIPS32R6;
 					else if (_basicMode == "mips32") basicMode = CS_MODE_MIPS32;
 					else if (_basicMode == "mips64") basicMode = CS_MODE_MIPS64;
+					else if (_basicMode == "riscv32") basicMode = CS_MODE_RISCV32;
+					else if (_basicMode == "riscv64") basicMode = CS_MODE_RISCV64;
+					else if (_basicMode == "riscvc") basicMode = CS_MODE_RISCVC;
 					else printHelpAndDie();
 				}
 				else if (c == "-e")
@@ -364,6 +370,7 @@ class ProgramOptions
 				case CS_ARCH_SPARC: return CS_MODE_LITTLE_ENDIAN; // 0
 				case CS_ARCH_SYSZ: return CS_MODE_LITTLE_ENDIAN;
 				case CS_ARCH_XCORE: return CS_MODE_LITTLE_ENDIAN;
+				case CS_ARCH_RISCV: return CS_MODE_RISCV32;
 				case CS_ARCH_MAX:
 				case CS_ARCH_ALL:
 				default:
@@ -390,7 +397,7 @@ class ProgramOptions
 		{
 			cout << _programName << ":\n"
 				"\t-a name   Set architecture name.\n"
-				"\t          Possible values: arm, arm64, mips, x86, ppc, sparc, sysz, xcore, m68k, tms320c64x\n"
+				"\t          Possible values: arm, arm64, mips, x86, ppc, sparc, sysz, xcore, m68k, tms320c64x, riscv\n"
 				"\t          Default value: x86.\n"
 				"\t-b base   Base address in hexadecimal format (e.g. 0x1000).\n"
 				"\t          Default value 0x1000.\n"
@@ -400,7 +407,7 @@ class ProgramOptions
 				"\t          Most of the time, this is more convenient than -c option.\n"
 				"\t-m mode   Capstone basic mode to use.\n"
 				"\t          Possible values: arm, thumb, 16, 32, 64, mips3, mips32r6,\n"
-				"\t          mips32, mips64\n"
+				"\t          mips32, mips64, riscv32, riscv64, riscvc\n"
 				"\t          Default value: 32.\n"
 				"\t-e mode   Capstone extra mode to use.\n"
 				"\t          Possible values: little, big, micro, mclass, v8, v9.\n"
@@ -439,6 +446,8 @@ class ProgramOptions
 					<< (cs_support(CS_ARCH_M68K) ? "supported" : "unsupported") << endl;
 			cout << cs_arch_2_string(CS_ARCH_TMS320C64X) << " is "
 					<< (cs_support(CS_ARCH_TMS320C64X) ? "supported" : "unsupported") << endl;
+			cout << cs_arch_2_string(CS_ARCH_RISCV) << " is "
+					<< (cs_support(CS_ARCH_RISCV) ? "supported" : "unsupported") << endl;
 			cout << cs_arch_2_string(CS_ARCH_MAX) << " is "
 					<< (cs_support(CS_ARCH_MAX) ? "supported" : "unsupported") << endl;
 			cout << cs_arch_2_string(CS_ARCH_ALL) << " is "
