@@ -32,6 +32,7 @@ void dumpInstructionArchDependentSysz(csh handle, cs_sysz* i);
 void dumpInstructionArchDependentXcore(csh handle, cs_xcore* i);
 void dumpInstructionArchDependentM68k(csh handle, cs_m68k* i);
 void dumpInstructionArchDependentTms320c64x(csh handle, cs_tms320c64x* i);
+void dumpInstructionArchDependentRiscv(csh handle, cs_riscv* i);
 
 } // namespace capstone_dumper
 

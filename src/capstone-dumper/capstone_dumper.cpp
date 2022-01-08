@@ -617,6 +617,7 @@ void dumpInstructionArchDependent(ProgramOptions& po, csh handle, cs_insn* i)
 		case CS_ARCH_XCORE: dumpInstructionArchDependentXcore(handle, &d->xcore); return;
 		case CS_ARCH_M68K: dumpInstructionArchDependentM68k(handle, &d->m68k); return;
 		case CS_ARCH_TMS320C64X: dumpInstructionArchDependentTms320c64x(handle, &d->tms320c64x); return;
+		case CS_ARCH_RISCV: dumpInstructionArchDependentRiscv(handle, &d->riscv); return;
 		default: assert(false && "Unsupported architecture."); return;
 	}
 }

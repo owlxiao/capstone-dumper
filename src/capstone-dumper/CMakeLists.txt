@@ -10,6 +10,7 @@ set(CAPSTONE_DUMPER_SOURCES
 	tms320c64x.cpp
 	x86.cpp
 	xcore.cpp
+	riscv.cpp
 )
 
 add_executable(capstone-dumper ${CAPSTONE_DUMPER_SOURCES})
