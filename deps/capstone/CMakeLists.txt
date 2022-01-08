@@ -1,7 +1,7 @@
 include(ExternalProject)
 
 ExternalProject_Add(capstone-project
-	URL https://github.com/aquynh/capstone/archive/c72fc8185ed4088c3486f621d150fbcf5f980aa0.zip
+	URL https://github.com/aquynh/capstone/archive/08d1b0ccd5526c29b4162d0ff616a6a1785237a7.zip
 	DOWNLOAD_NAME capstone.zip
 	CMAKE_ARGS
 		# This does not work on MSVC, but may be useful on Linux.
